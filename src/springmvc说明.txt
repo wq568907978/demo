@@ -1,0 +1,6 @@
+一、流程
+   0.在web.xml配置ContextLoaderListener	//不需要
+   1.在web.xml中配置DispatcherServlet(springmvc的总控类，负责接收请求，并分发给相应的handler处理)
+   2.实现handler类的编写(处理请求,指定返回的视图)
+   3.实现返回的视图视图
+   4.配置dispatcher-servlet.xml的配置
