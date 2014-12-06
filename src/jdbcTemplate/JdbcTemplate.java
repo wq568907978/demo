@@ -12,7 +12,10 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import vo.EmpVO;
-
+/**
+ * 为了区分merge和rebase
+ * 
+ * */
 public class JdbcTemplate implements JdbcOperations{
 	
 	private DataSource dataSource;  //DataSource直接加在 JdbcTemplate，为了简单
