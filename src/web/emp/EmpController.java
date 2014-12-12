@@ -15,43 +15,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import service.EmpService;
 import vo.EmpVO;
 
-@Controller  //注解 EmpController 是一个 controller(handler)
+@Controller  //娉ㄨВ EmpController 鏄竴涓�controller(handler)
 @RequestMapping("/emp")  
 public class EmpController {
 	
 	//@Resource(name="jdbcTemplate")
+	/*@Autowired
+	@Qualifier(value="jdbcTemplate")		
+	private JdbcTemplate jdbcTemplate;*/
+	//jdbcTemplate移到service层
+		
 	@Autowired
-	@Qualifier(value="jdbcTemplate")
-	private JdbcTemplate jdbcTemplate;
+	@Qualifier(value="empService")
+	private EmpService empService;
 	
 	/**
-	 * 获取员工信息
+	 * 鑾峰彇鍛樺伐淇℃伅
 	 * */
 	@RequestMapping(method=RequestMethod.GET)
-	//model:springmvc在调用方法前，会创建一个隐含的模型对象，用于存储数据，供view和controller交互数据
-	//相当于struts2的值栈
+	//model:springmvc鍦ㄨ皟鐢ㄦ柟娉曞墠锛屼細鍒涘缓涓�釜闅愬惈鐨勬ā鍨嬪璞★紝鐢ㄤ簬瀛樺偍鏁版嵁锛屼緵view鍜宑ontroller浜や簰鏁版嵁
+	//鐩稿綋浜巗truts2鐨勫�鏍�
 	public String list(Model model){
-		List<EmpVO> list = jdbcTemplate.query("select * from emp", new RowMapper<EmpVO>(){
-			public EmpVO mapRow(ResultSet rs, int index) throws SQLException {
-				EmpVO emp = new EmpVO();
-				emp.setEmpno(rs.getInt("empno"));
-				emp.setEname(rs.getString("ename"));
-				emp.setJob(rs.getString("job"));
-				emp.setSal(rs.getDouble("sal"));
-				return emp;
-			}
-		});
+		List<EmpVO> list = empService.list();
 		model.addAttribute("empList", list);
 		return "empList";
 	}
 	
 	/**
-	 * 员工信息编辑页面
+	 * 鍛樺伐淇℃伅缂栬緫椤甸潰
 	 * */
-	//{emp}通配符,配合@PathVariable传参
-	@RequestMapping(value="/{empno}/edit",method=RequestMethod.GET)
+	//{emp}閫氶厤绗�閰嶅悎@PathVariable浼犲弬
+	/*@RequestMapping(value="/{empno}/edit",method=RequestMethod.GET)
 	public String edit(@PathVariable Integer empno,Model model){
 		String selSql =  "select * from emp where empno = " + empno ;
 		EmpVO vo = jdbcTemplate.queryForObject(selSql, new RowMapper<EmpVO>(){
@@ -66,16 +63,16 @@ public class EmpController {
 		});
 		model.addAttribute("emp", vo);
 		return "empEdit";
-	}
+	}*/
 	
 	/**
-	 * 更新员工信息
+	 * 鏇存柊鍛樺伐淇℃伅
 	 * */
-	@RequestMapping(value="/{empno}",method=RequestMethod.PUT)
+	/*@RequestMapping(value="/{empno}",method=RequestMethod.PUT)
 	public String update(@PathVariable Integer empno,@RequestParam String xiao, EmpVO vo, Model model){
 		String updateSql = "update emp set ename=?,job=?,sal=? where empno = ? ";
 		jdbcTemplate.update(updateSql, new Object[]{vo.getEname(),vo.getJob(),vo.getSal(),vo.getEmpno()});
-		//跳转到list方法
+		//璺宠浆鍒發ist鏂规硶
 		return "redirect:/emp/";
-	}
+	}*/
 }

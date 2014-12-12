@@ -1,6 +1,6 @@
-#忽略build和.settings文件夹下的文件，全为class
+#韫囩晫鏆恇uild閸滐拷settings閺傚洣娆㈡径閫涚瑓閻ㄥ嫭鏋冩禒璁圭礉閸忋劋璐焎lass
 /build/
 /.settings/
-#忽略.classpath和.project
-*.classpath
+#韫囩晫鏆�classpath閸滐拷project
+*.classpath 
 *.project
